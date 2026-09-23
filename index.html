@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NajwaLearn — نجاوي</title>
+    <!-- خطوط Google Fonts (Cairo & Poppins) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --baby-blue: #E0F2FE;
+            --sky-blue: #38BDF8;
+            --dark-green: #065F46;
+            --light-bg: #F0F9FF;
+            --white: #FFFFFF;
+            --dark-navy: #0F172A;
+            --blue-gray: #64748B;
+            --soft-purple: #EDE9FE;
+            --soft-green: #D1FAE5;
+            --border-color: #CBD5E1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-navy);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            padding: 30px;
+            position: relative;
+        }
+
+        /* رأس الصفحة */
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark-green);
+        }
+
+        .lang-btn {
+            background: var(--baby-blue);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--dark-navy);
+            transition: 0.2s;
+        }
+
+        .lang-btn:hover {
+            background: var(--sky-blue);
+            color: var(--white);
+        }
+
+        /* التميمة صوصو */
+        .soso-box {
+            display: flex;
+            align-items: center;
+            background: var(--baby-blue);
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            gap: 12px;
+        }
+
+        .soso-box span {
+            font-size: 28px;
+        }
+
+        .soso-text h4 {
+            font-size: 16px;
+            color: var(--dark-green);
+            font-weight: 700;
+        }
+
+        .soso-text p {
+            font-size: 14px;
+            color: var(--blue-gray);
+        }
+
+        /* الشاشات */
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        h1.main-title {
+            font-size: 36px;
+            color: var(--dark-green);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        p.desc {
+            font-size: 16px;
+            color: var(--blue-gray);
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            background: var(--sky-blue);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .btn-primary:hover {
+            background: #0284C7;
+        }
+
+        /* الأسئلة والاختيارات */
+        .question-card {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .question-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--dark-navy);
+            margin-bottom: 15px;
+        }
+
+        .options-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--light-bg);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: 0.2s;
+            font-size: 16px;
+        }
+
+        .option-label:hover {
+            background: var(--baby-blue);
+        }
+
+        .option-label input {
+            accent-color: var(--sky-blue);
+        }
+
+        /* الجداول والنتائج */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        th {
+            background: var(--baby-blue);
+            color: var(--dark-green);
+        }
+
+        .result-section {
+            background: var(--soft-green);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .result-section h3 {
+            color: var(--dark-green);
+            margin-bottom: 10px;
+        }
+
+        .closing-note {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--soft-purple);
+            border-radius: 12px;
+            font-weight: 600;
+            color: #5B21B6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-top">
+        <div class="logo">NajwaLearn</div>
+        <button class="lang-btn" onclick="toggleLanguage()">English / عربي</button>
+    </div>
+
+    <!-- شاشة البداية -->
+    <div id="welcome-screen" class="screen active">
+        <h1 class="main-title" data-ar="مرحبًا بك في نجاوي" data-en="Welcome to NajwaLearn">مرحبًا بك في نجاوي</h1>
+        <p class="desc" data-ar="منصة تعليمية تساعدك على اكتشاف نقاط قوتك في التعلّم، واختيار أساليب مذاكرة مناسبة لك، واستكشاف ميولك الدراسية والمهنية." data-en="An educational platform that helps you discover your learning strengths, choose suitable study methods, and explore your academic and career inclinations.">
+            منصة تعليمية تساعدك على اكتشاف نقاط قوتك في التعلّم، واختيار أساليب مذاكرة مناسبة لك، واستكشاف ميولك الدراسية والمهنية.
+        </p>
+        <button class="btn-primary" onclick="startStudyQuiz()" data-ar="اكتشف نقاط قوتك" data-en="Discover Your Strengths">اكتشف نقاط قوتك</button>
+    </div>
+
+    <!-- شاشة اختبار المذاكرة -->
+    <div id="study-quiz-screen" class="screen">
+        <div class="soso-box">
+            <span>🐥</span>
+            <div class="soso-text">
+                <h4 data-ar="صوصو قادم قريبًا!" data-en="Soso is coming soon!">صوصو قادم قريبًا!</h4>
+                <p data-ar="مساعدك الذكي في نجاوي." data-en="Your smart assistant in NajwaLearn.">مساعدك الذكي في نجاوي.</p>
+            </div>
+        </div>
+        <h2 id="study-title-heading" style="color: var(--dark-green); margin-bottom: 20px;">اختبار أساليب المذاكرة (15 سؤالاً)</h2>
+        <div id="study-questions-container"></div>
+        <button class="btn-primary" id="btn-calc-study" onclick="calculateStudyResults()" data-ar="عرض النتيجة وخطة المذاكرة المناسبة" data-en="Show Results & Study Plan">عرض النتيجة وخطة المذاكرة المناسبة</button>
+    </div>
+
+    <!-- شاشة نتائج المذاكرة -->
+    <div id="study-result-screen" class="screen">
+        <h2 style="color: var(--dark-green); margin-bottom: 15px;" data-ar="بروفايل المذاكرة الخاص بك" data-en="Your Study Profile">بروفايل المذاكرة الخاص بك</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th data-ar="المحور" data-en="Axis">المحور</th>
+                    <th data-ar="درجتك" data-en="Your Score">درجتك</th>
+                    <th data-ar="المستوى" data-en="Level">المستوى</th>
+                </tr>
+            </thead>
+            <tbody id="study-result-table-body"></tbody>
+        </table>
+
+        <div class="result-section">
+            <h3 data-ar="خطة المذاكرة المقترحة" data-en="Suggested Study Plan">خطة المذاكرة المقترحة</h3>
+            <div id="study-plan-content"></div>
+        </div>
+
+        <div class="result-section" style="background: var(--soft-purple);">
+            <h3 data-ar="نقاط قوتك وشخصيتك" data-en="Your Strengths & Personality">نقاط قوتك وشخصيتك</h3>
+            <div id="strengths-and-personality"></div>
+        </div>
+
+        <button class="btn-primary" onclick="startHollandQuiz()" data-ar="اختبار هولاند لاكتشاف الميول المهني" data-en="Holland Career Interests Test">اختبار هولاند لاكتشاف الميول المهني</button>
+    </div>
+
+    <!-- شاشة اختبار هولاند -->
+    <div id="holland-quiz-screen" class="screen">
+        <h2 id="holland-heading" style="color: var(--dark-green); margin-bottom: 20px;">اختبار هولاند للميول المهنية (18 سؤالاً)</h2>
+        <p class="desc" id="holland-desc" data-ar="قدّر مدى إعجابك بالنشاط الآتي (1: لا يعجبني، 2: إلى حد ما، 3: يعجبني جدًا)" data-en="Rate how much you like the following activity (1: Dislike, 2: Somewhat, 3: Very much)">قدّر مدى إعجابك بالنشاط الآتي (1: لا يعجبني، 2: إلى حد ما، 3: يعجبني جدًا)</p>
+        <div id="holland-questions-container"></div>
+        <button class="btn-primary" id="btn-calc-holland" onclick="calculateHollandResults()" data-ar="عرض النتيجة المهنية والمهن المقترحة" data-en="Show Career Results & Jobs">عرض النتيجة المهنية والمهن المقترحة</button>
+    </div>
+
+    <!-- شاشة النتائج النهائية -->
+    <div id="final-result-screen" class="screen">
+        <h2 style="color: var(--dark-green); margin-bottom: 15px;" data-ar="نتيجتك النهائية وميولك المهنية" data-en="Your Final Results & Career Paths">نتيجتك النهائية وميولك المهنية</h2>
+        <div id="holland-result-content" class="result-section"></div>
+        
+        <div class="closing-note" data-ar="رحلتك لا تنتهي عند هذه النتيجة… بل تبدأ منها. اكتشف نفسك، طوّر نقاط قوتك، واتبع شغفك نحو الطريق الذي يشبهك. 💙🐥 — نجاوي" data-en="Your journey doesn't end at this result... it starts here. Discover yourself, develop your strengths, and follow your passion. 💙🐥 — NajwaLearn">
+            رحلتك لا تنتهي عند هذه النتيجة… بل تبدأ منها.
+            اكتشف نفسك، طوّر نقاط قوتك، واتبع شغفك نحو الطريق الذي يشبهك. 💙🐥
+            — نجاوي
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentLang = 'ar';
+
+    // أسئلة المذاكرة باللغتين
+    const studyQuestions = [
+        {
+            axis: { ar: 'الانتباه والتركيز', en: 'Attention & Focus' },
+            q: { ar: 'عند المذاكرة في وجود ضوضاء أو حديث أشخاص حولك، ما الذي يحدث غالبًا؟', en: 'When studying with background noise or people talking around you, what usually happens?' },
+            options: {
+                ar: ['أفقد تركيزي بسرعة كبيرة.', 'أتضايق، لكنني أستطيع التركيز إذا كان مهمًا.', 'لا يتأثر تركيزي بشكل ملحوظ.'],
+                en: ['I lose focus very quickly.', 'I get annoyed, but can focus if it is important.', 'My focus is not noticeably affected.']
+            }
+        },
+        {
+            axis: { ar: 'الانتباه والتركيز', en: 'Attention & Focus' },
+            q: { ar: 'أثناء المذاكرة، ما الذي يحدث لأفكارك؟', en: 'During studying, what happens to your thoughts?' },
+            options: {
+                ar: ['تتزاحم أفكاري وتكسر تركيزي.', 'أشرّد أحيانًا، لكنني أعود بسرعة.', 'نادرًا ما أشرّد بأفكار أخرى.'],
+                en: ['My thoughts crowd and break my concentration.', 'I wander sometimes, but return quickly.', 'I rarely wander with other thoughts.']
+            }
+        },
+        {
+            axis: { ar: 'الانتباه والتركيز', en: 'Attention & Focus' },
+            q: { ar: 'في أول 15–20 دقيقة من المذاكرة العادية:', en: 'In the first 15-20 minutes of regular studying:' },
+            options: {
+                ar: ['يتفلت تركيزي كثيرًا.', 'أركز جيدًا، لكن في لحظات أشرّد.', 'أستمر مركزًا من دون شرود ملحوظ.'],
+                en: ['My focus slips a lot.', 'I focus well, but wander at moments.', 'I stay focused without noticeable wandering.']
+            }
+        },
+        {
+            axis: { ar: 'سرعة الحفظ', en: 'Memory Speed' },
+            q: { ar: 'عند قراءة تعريف أو معلومة جديدة مرة واحدة:', en: 'When reading a new definition or piece of information once:' },
+            options: {
+                ar: ['أشعر أن المعلومة لا تدخل وأحتاج قراءتها كثيرًا.', 'أفهمها وأحتاج مراجعتها مرة أو مرتين.', 'أحفظ الفكرة الأساسية من أول مرة.'],
+                en: ['I feel the info doesn\'t sink in and need multiple reads.', 'I understand it, but need 1-2 reviews.', 'I memorize the core idea on the first try.']
+            }
+        },
+        {
+            axis: { ar: 'سرعة الحفظ', en: 'Memory Speed' },
+            q: { ar: 'عند مذاكرة قائمة مفاهيم (8-10) وتغطيتها بعد دقيقتين:', en: 'When studying a list of concepts (8-10) and covering them after 2 minutes:' },
+            options: {
+                ar: ['أتذكر عددًا قليلًا جدًا (1-3).', 'أتذكر نحو نصفها (4-6).', 'أتذكر معظمها (7 فأكثر) تلقائيًا.'],
+                en: ['I remember very few (1-3).', 'I remember about half (4-6).', 'I remember most of them (7+) automatically.']
+            }
+        },
+        {
+            axis: { ar: 'سرعة الحفظ', en: 'Memory Speed' },
+            q: { ar: 'بعد مذاكرة درس وحفظه جيدًا، في اليوم التالي:', en: 'After studying a lesson and mastering it, the next day:' },
+            options: {
+                ar: ['أنسى جزءًا كبيرًا إذا لم أراجعه.', 'أنسى بعض التفاصيل والأفكار الأساسية تبقى.', 'معظم ما حفظته يبقى معي من دون جهد.'],
+                en: ['I forget a large part if I don\'t review.', 'I forget some details, but core ideas remain.', 'Most of what I memorized stays without effort.']
+            }
+        },
+        {
+            axis: { ar: 'طاقة الجلسة', en: 'Session Energy' },
+            q: { ar: 'ما المدة التي تستفيد منها أكثر في المذاكرة المتواصلة؟', en: 'What duration do you benefit from most in continuous studying?' },
+            options: {
+                ar: ['15–25 دقيقة.', '30–45 دقيقة.', '45–60 دقيقة أو أكثر.'],
+                en: ['15–25 minutes.', '30–45 minutes.', '45–60 minutes or more.']
+            }
+        },
+        {
+            axis: { ar: 'طاقة الجلسة', en: 'Session Energy' },
+            q: { ar: 'في منتصف جلسة المذاكرة (بعد 20-30 دقيقة):', en: 'In the middle of a study session (after 20-30 minutes):' },
+            options: {
+                ar: ['يقل تركيزي وعقلي متعب.', 'أظل مركزًا لكن يقل قليلاً.', 'يقوى تركيزي وأدخل في جو المذاكرة.'],
+                en: ['My focus drops and my mind feels tired.', 'I stay focused, but concentration drops slightly.', 'My focus strengthens and I get into the zone.']
+            }
+        },
+        {
+            axis: { ar: 'طاقة الجلسة', en: 'Session Energy' },
+            q: { ar: 'في الأيام التي تكون فيها متعبًا بعض الشيء:', en: 'On days when you are a bit tired:' },
+            options: {
+                ar: ['يقل جدًا وأفضّل التأجيل.', 'يقل بوضوح وأضطر لاختصار الوقت.', 'يبقى جيدًا وأحتاج راحة أكثر.'],
+                en: ['It drops significantly and I prefer postponing.', 'It drops clearly and I must shorten the time.', 'It stays relatively good, but I need more rest.']
+            }
+        },
+        {
+            axis: { ar: 'النشاط الحركي', en: 'Motor Activity' },
+            q: { ar: 'ما الوضع الذي تستفيد منه أكثر في المذاكرة؟', en: 'What posture do you benefit from most while studying?' },
+            options: {
+                ar: ['أكون جالسًا في مكان ثابت دون حركة.', 'أتحرك قليلًا (أمشي بالغرفة).', 'أحتاج فواصل حركة واضحة.'],
+                en: ['Sitting in a fixed place without much movement.', 'Moving slightly (walking in the room).', 'Needing clear movement breaks (stretching, short walks).']
+            }
+        },
+        {
+            axis: { ar: 'النشاط الحركي', en: 'Motor Activity' },
+            q: { ar: 'عندما تشعر بأن تركيزك بدأ يقل، أول ما تفعله:', en: 'When you feel your focus dropping, the first thing you do is:' },
+            options: {
+                ar: ['أظل جالسًا وأحاول التركيز.', 'أغيّر مكاني أو أقف وأتمطّط.', 'أمشي قليلًا ثم أعود.'],
+                en: ['Stay seated and try to focus more.', 'Change my place or stand up and stretch.', 'Walk a bit in the room then return.']
+            }
+        },
+        {
+            axis: { ar: 'النشاط الحركي', en: 'Motor Activity' },
+            q: { ar: 'ما رأيك في فكرة "المذاكرة وأنت تتمشى"؟', en: 'What do you think of the idea of "studying while walking around"?' },
+            options: {
+                ar: ['غير مناسبة لي وأفضّل الجلوس.', 'ربما أجربها.', 'ممتازة وأثبت المعلومة أفضل.'],
+                en: ['Not suitable for me, I prefer sitting.', 'Maybe I\'ll try it, not sure of its benefit.', 'Excellent, I feel information sticks better when moving.']
+            }
+        },
+        {
+            axis: { ar: 'بيئة العمل', en: 'Work Environment' },
+            q: { ar: 'ما البيئة التي تساعدك على المذاكرة بتركيز؟', en: 'What environment helps you study with focus?' },
+            options: {
+                ar: ['مكان هادئ تمامًا.', 'مكان فيه ضوضاء خفيفة أو موسيقى.', 'أي مكان طالما هناك عمل أمامي.'],
+                en: ['A completely quiet place without music or noise.', 'A place with light noise or calm music.', 'Any place, even with people around, as long as there is work ahead.']
+            }
+        },
+        {
+            axis: { ar: 'بيئة العمل', en: 'Work Environment' },
+            q: { ar: 'عندما يتحدث أشخاص في الغرفة التي أنت فيها:', en: 'When people are talking in the room you are in:' },
+            options: {
+                ar: ['أفقد تركيزي بسرعة.', 'أتضايق لكن أركز إذا كان مهماً.', 'لا يتأثر تركيزي.'],
+                en: ['I lose focus very quickly.', 'I get annoyed, but can focus if it is important.', 'My focus is not noticeably affected.']
+            }
+        },
+        {
+            axis: { ar: 'بيئة العمل', en: 'Work Environment' },
+            q: { ar: 'ما ترتيب المكان الذي تفضّله؟', en: 'What organization level of your space do you prefer?' },
+            options: {
+                ar: ['مكتب مرتب جدًا وكل شيء بمكانه.', 'مرتب بشكل عام.', 'لا يتأثر تركيزي لو وُجدت فوضى.'],
+                en: ['A very tidy desk, everything in its place.', 'Generally tidy, but not every minute.', 'My focus is not affected much; I study even with clutter.']
+            }
+        }
+    ];
+
+    // أسئلة هولاند باللغتين
+    const hollandQuestions = [
+        { type: 'R', q: { ar: 'أحب العمل بيديّ في أنشطة عملية (إصلاح، تركيب، نجارة، كهرباء…).', en: 'I like working with my hands in practical activities (repair, carpentry, electricity).' } },
+        { type: 'R', q: { ar: 'أحب استخدام أدوات أو ماكينات (مثل مفكات، أجهزة قياس).', en: 'I like using tools or machines (screwdrivers, measuring devices).' } },
+        { type: 'R', q: { ar: 'أحب تركيب أو فك أجهزة أو قطع ميكانيكية لفهم عملها.', en: 'I like assembling or disassembling devices to understand how they work.' } },
+        
+        { type: 'I', q: { ar: 'أحب حل ألغاز أو مسائل تفكير (رياضيات، منطق، استنتاج).', en: 'I like solving puzzles or thinking problems (math, logic, deduction).' } },
+        { type: 'I', q: { ar: 'أحب البحث عن أسباب الأشياء (لماذا حدث هذا؟ كيف يعمل؟).', en: 'I like searching for the causes of things (why did this happen? how does it work?).' } },
+        { type: 'I', q: { ar: 'أحب تحليل بيانات أو جداول لاستخراج استنتاجات منها.', en: 'I like analyzing data or tables to extract conclusions.' } },
+
+        { type: 'A', q: { ar: 'أحب الرسم أو التصميم (رسومات، شعارات، ديكور…).', en: 'I like drawing or designing (graphics, logos, decor).' } },
+        { type: 'A', q: { ar: 'أحب الكتابة الإبداعية (قصة، شعر، سيناريو).', en: 'I like creative writing (story, poetry, script).' } },
+        { type: 'A', q: { ar: 'أحب اختيار الألوان والتنسيقات بشكل إبداعي.', en: 'I like choosing colors and layouts creatively.' } },
+
+        { type: 'S', q: { ar: 'أحب مساعدة زملائي في الفهم أو شرح دروس صعبة.', en: 'I like helping peers understand or explaining difficult lessons.' } },
+        { type: 'S', q: { ar: 'أحب المشاركة في أنشطة تطوعية لمساعدة المحتاجين.', en: 'I like participating in volunteer activities to help people.' } },
+        { type: 'S', q: { ar: 'أحب تقديم نصيحة أو إرشاد لصديق أو فرد من العائلة.', en: 'I like giving advice or guidance to a friend or family member.' } },
+
+        { type: 'E', q: { ar: 'أحب قيادة فريق في مشروع أو نشاط.', en: 'I like leading a team in a project or activity.' } },
+        { type: 'E', q: { ar: 'أحب إقناع الناس بفكرة أو منتج.', en: 'I like persuading people of an idea or product.' } },
+        { type: 'E', q: { ar: 'أحب تنظيم نشاط أو مسابقة أو حملة.', en: 'I like organizing an activity, competition, or campaign.' } },
+
+        { type: 'C', q: { ar: 'أحب تنظيم مذكرتي وجداولي بدقة (مواعيد، مهام).', en: 'I like organizing my schedule and notes accurately.' } },
+        { type: 'C', q: { ar: 'أحب اتباع خطوات وقواعد واضحة ومنظمة في إنجاز المهام.', en: 'I like following clear, organized steps and rules.' } },
+        { type: 'C', q: { ar: 'أحب مراجعة وتدقيق التفاصيل لضمان خلوها من الأخطاء.', en: 'I like reviewing and checking details to ensure they are error-free.' } }
+    ];
+
+    function renderQuestions() {
+        const studyCont = document.getElementById('study-questions-container');
+        studyCont.innerHTML = '';
+        studyQuestions.forEach((item, index) => {
+            studyCont.innerHTML += `
+                <div class="question-card">
+                    <div class="question-title">س${index+1}: ${item.q[currentLang]}</div>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="q_${index}" value="1" required> 1) ${item.options[currentLang][0]}</label>
+                        <label class="option-label"><input type="radio" name="q_${index}" value="2"> 2) ${item.options[currentLang][1]}</label>
+                        <label class="option-label"><input type="radio" name="q_${index}" value="3"> 3) ${item.options[currentLang][2]}</label>
+                    </div>
+                </div>
+            `;
+        });
+
+        const hollandCont = document.getElementById('holland-questions-container');
+        hollandCont.innerHTML = '';
+        hollandQuestions.forEach((item, index) => {
+            hollandCont.innerHTML += `
+                <div class="question-card">
+                    <div class="question-title">${index+1}) ${item.q[currentLang]}</div>
+                    <div class="options-group">
+                        <label class="option-label"><input type="radio" name="h_${index}" value="1" required> ${currentLang === 'ar' ? '1) لا يعجبني تقريبًا' : '1) Dislike'}</label>
+                        <label class="option-label"><input type="radio" name="h_${index}" value="2"> ${currentLang === 'ar' ? '2) يعجبني إلى حد ما' : '2) Somewhat'}</label>
+                        <label class="option-label"><input type="radio" name="h_${index}" value="3"> ${currentLang === 'ar' ? '3) يعجبني جدًا' : '3) Very much'}</label>
+                    </div>
+                </div>
+            `;
+        });
+
+        // تحديث العناوين الثابتة الخاصة بالاختبارات
+        if(currentLang === 'ar') {
+            document.getElementById('study-title-heading').innerText = "اختبار أساليب المذاكرة (15 سؤالاً)";
+            document.getElementById('holland-heading').innerText = "اختبار هولاند للميول المهنية (18 سؤالاً)";
+            document.getElementById('holland-desc').innerText = "قدّر مدى إعجابك بالنشاط الآتي (1: لا يعجبني، 2: إلى حد ما، 3: يعجبني جدًا)";
+        } else {
+            document.getElementById('study-title-heading').innerText = "Study Methods Test (15 Questions)";
+            document.getElementById('holland-heading').innerText = "Holland Career Interests Test (18 Questions)";
+            document.getElementById('holland-desc').innerText = "Rate how much you like the following activity (1: Dislike, 2: Somewhat, 3: Very much)";
+        }
+    }
+
+    function startStudyQuiz() {
+        document.getElementById('welcome-screen').classList.remove('active');
+        document.getElementById('study-quiz-screen').classList.add('active');
+    }
+
+    function startHollandQuiz() {
+        document.getElementById('study-result-screen').classList.remove('active');
+        document.getElementById('holland-quiz-screen').classList.add('active');
+    }
+
+    function calculateStudyResults() {
+        for(let i=0; i<15; i++) {
+            if(!document.querySelector(`input[name="q_${i}"]:checked`)) {
+                alert(currentLang === 'ar' ? 'يرجى الإجابة على جميع الأسئلة.' : 'Please answer all questions.');
+                return;
+            }
+        }
+
+        let sums = { 'الانتباه والتركيز': 0, 'سرعة الحفظ': 0, 'طاقة الجلسة': 0, 'النشاط الحركي': 0, 'بيئة العمل': 0 };
+
+        studyQuestions.forEach((item, index) => {
+            let val = parseInt(document.querySelector(`input[name="q_${index}"]:checked`).value);
+            // مفتاح المحور بالعربي للتجميع الثابت
+            sums[item.axis.ar] += val;
+        });
+
+        let tableBody = document.getElementById('study-result-table-body');
+        tableBody.innerHTML = '';
+
+        let getLevel = (score, axis) => {
+            if (axis === 'النشاط الحركي') {
+                return currentLang === 'ar' ? (score >= 7 ? 'يحتاج حركة' : (score >= 5 ? 'متوسط' : 'يفضل ثبات')) : (score >= 7 ? 'Needs Movement' : (score >= 5 ? 'Moderate' : 'Prefers Stability'));
+            }
+            if (axis === 'بيئة العمل') {
+                return currentLang === 'ar' ? (score >= 7 ? 'مرن' : (score >= 5 ? 'متوسط' : 'يحتاج هدوء')) : (score >= 7 ? 'Flexible' : (score >= 5 ? 'Moderate' : 'Needs Quiet'));
+            }
+            return currentLang === 'ar' ? (score >= 7 ? 'قوي' : (score >= 5 ? 'متوسط' : 'ضعيف')) : (score >= 7 ? 'Strong' : (score >= 5 ? 'Moderate' : 'Weak'));
+        };
+
+        for(let axis in sums) {
+            let displayAxis = currentLang === 'ar' ? axis : (axis === 'الانتباه والتركيز' ? 'Attention & Focus' : axis === 'سرعة الحفظ' ? 'Memory Speed' : axis === 'طاقة الجلسة' ? 'Session Energy' : axis === 'النشاط الحركي' ? 'Motor Activity' : 'Work Environment');
+            tableBody.innerHTML += `<tr><td>${displayAxis}</td><td>${sums[axis]} / 9</td><td>${getLevel(sums[axis], axis)}</td></tr>`;
+        }
+
+        let planHtml = currentLang === 'ar' ? `
+            <ul>
+                <li><strong>1) مدة الجلسة:</strong> ${sums['طاقة الجلسة'] >= 7 ? '45-60 دقيقة، مع راحة 5-10 دقائق.' : (sums['طاقة الجلسة'] >= 5 ? '30-40 دقيقة، مع راحة 5-8 دقائق.' : '15-25 دقيقة، مع راحة 5 دقائق.')}</li>
+                <li><strong>2) نوع الملخصات:</strong> ${sums['سرعة الحفظ'] >= 7 ? 'خرائط ذهنية وجمل قصيرة.' : (sums['سرعة الحفظ'] >= 5 ? 'ملخصات نقطية مع مراجعة سريعة.' : 'مسائل وتمارين تطبيقية وإعادة كتابة.')}</li>
+                <li><strong>3) الحركة:</strong> ${sums['النشاط الحركي'] >= 7 ? 'امشِ 2-3 دقائق قبل الجلسة مع فواصل حركة.' : (sums['النشاط الحركي'] >= 5 ? 'غيّر مكانك مرة أو مرتين في الجلسة.' : 'اجلس في مكان ثابت ومريح ومنظم.')}</li>
+                <li><strong>4) البيئة:</strong> ${sums['بيئة العمل'] >= 7 ? 'مكان هادئ، أغلق إشعارات الهاتف.' : (sums['بيئة العمل'] >= 5 ? 'ضوضاء خفيفة أو موسيقى هادئة.' : 'مكان هادئ تمامًا ومنعزل عن المشتتات.')}</li>
+                <li><strong>5) تثبيت المعلومة:</strong> ${sums['سرعة الحفظ'] >= 7 ? 'اكتب 3 أسئلة صغيرة بعد كل جلسة وأجب عليها.' : (sums['سرعة الحفظ'] >= 5 ? 'راجع الملخص بعد 24 ساعة ثم بعد 3 أيام.' : 'حل أسئلة وتمارين مباشرة بعد المذاكرة.')}</li>
+                <li><strong>6) الانتباه:</strong> ${sums['الانتباه والتركيز'] >= 7 ? 'تقنية بومودورو: 45-50 دقيقة تركيز + 5-10 راحة.' : (sums['الانتباه والتركيز'] >= 5 ? 'اكتب هدفًا واحدًا واضحًا قبل كل جلسة.' : 'استخدم مؤقتًا مرئيًا (تايمر) وابدأ بدقيقتين.')}</li>
+            </ul>
+        ` : `
+            <ul>
+                <li><strong>1) Session Duration:</strong> ${sums['طاقة الجلسة'] >= 7 ? '45-60 mins, with 5-10 mins break.' : (sums['طاقة الجلسة'] >= 5 ? '30-40 mins, with 5-8 mins break.' : '15-25 mins, with 5 mins break.')}</li>
+                <li><strong>2) Summary Type:</strong> ${sums['سرعة الحفظ'] >= 7 ? 'Mind maps and short sentences.' : (sums['سرعة الحفظ'] >= 5 ? 'Bullet summaries with quick reviews.' : 'Practical exercises and rewriting.')}</li>
+                <li><strong>3) Movement:</strong> ${sums['النشاط الحركي'] >= 7 ? 'Walk 2-3 mins before the session with movement breaks.' : (sums['النشاط الحركي'] >= 5 ? 'Change your spot 1-2 times during the session.' : 'Sit in a fixed, comfortable, organized place.')}</li>
+                <li><strong>4) Environment:</strong> ${sums['بيئة العمل'] >= 7 ? 'Quiet place, turn off phone notifications.' : (sums['بيئة العمل'] >= 5 ? 'Light noise or calm music.' : 'Completely quiet place away from distractions.')}</li>
+                <li><strong>5) Information Retention:</strong> ${sums['سرعة الحفظ'] >= 7 ? 'Write 3 small questions after each session and answer them.' : (sums['سرعة الحفظ'] >= 5 ? 'Review the summary after 24 hours then 3 days.' : 'Solve exercises directly after studying.')}</li>
+                <li><strong>6) Attention:</strong> ${sums['الانتباه والتركيز'] >= 7 ? 'Pomodoro technique: 45-50 mins focus + 5-10 rest.' : (sums['الانتباه والتركيز'] >= 5 ? 'Write one clear goal before each session.' : 'Use a visual timer and start with just 2 mins.')}</li>
+            </ul>
+        `;
+        document.getElementById('study-plan-content').innerHTML = planHtml;
+
+        document.getElementById('study-quiz-screen').classList.remove('active');
+        document.getElementById('study-result-screen').classList.add('active');
+    }
+
+    function calculateHollandResults() {
+        for(let i=0; i<18; i++) {
+            if(!document.querySelector(`input[name="h_${i}"]:checked`)) {
+                alert(currentLang === 'ar' ? 'يرجى الإجابة على جميع أسئلة هولاند.' : 'Please answer all Holland questions.');
+                return;
+            }
+        }
+
+        let hollandScores = { R: 0, I: 0, A: 0, S: 0, E: 0, C: 0 };
+        hollandQuestions.forEach((item, index) => {
+            let val = parseInt(document.querySelector(`input[name="h_${index}"]:checked`).value);
+            hollandScores[item.type] += val;
+        });
+
+        let sorted = Object.keys(hollandScores).sort((a,b) => hollandScores[b] - hollandScores[a]);
+        let topCode = sorted[0] + sorted[1] + sorted[2];
+
+        const jobsMapAr = {
+            'R': 'فني سيارات، فني كهرباء، مهندس مدني تنفيذي، فني مختبرات',
+            'I': 'باحث، عالم كيمياء، مطور برمجيات، محلل بيانات، طبيب',
+            'A': 'مصمم جرافيك، مصمم داخلي، كاتب محتوى، سيناريست، مذيع',
+            'S': 'معلم، مرشد أكاديمي، أخصائي نفسي واجتماعي، معالج طبيعي',
+            'E': 'مدير مشروع، مدير مبيعات، رائد أعمال، مسوق، مدير تسويق',
+            'C': 'محاسب، مدقق حسابات، إداري، سكرتير تنفيذي، محلل نظم'
+        };
+
+        const jobsMapEn = {
+            'R': 'Auto technician, electrician, civil engineer, lab technician',
+            'I': 'Researcher, chemist, software developer, data analyst, physician',
+            'A': 'Graphic designer, interior designer, content writer, screenwriter',
+            'S': 'Teacher, academic advisor, psychologist, social worker',
+            'E': 'Project manager, sales manager, entrepreneur, marketer',
+            'C': 'Accountant, auditor, administrator, executive secretary'
+        };
+
+        let jobsMap = currentLang === 'ar' ? jobsMapAr : jobsMapEn;
+
+        let resultHtml = `
+            <h3>${currentLang === 'ar' ? 'رمز هولاند الخاص بك: ' : 'Your Holland Code: '}<span style="color: var(--sky-blue);">${topCode}</span></h3>
+            <p style="margin: 15px 0;"><strong>${currentLang === 'ar' ? 'الأنماط الأعلى لديك:' : 'Your Top Patterns:'}</strong> ${sorted[0]}، ${sorted[1]}، ${sorted[2]}</p>
+            <h4 style="margin-top: 15px; color: var(--dark-green);">${currentLang === 'ar' ? 'المهن المقترحة بناءً على ميولك:' : 'Suggested Careers Based on Your Interests:'}</h4>
+            <p>${jobsMap[sorted[0]]}، ${jobsMap[sorted[1]]}</p>
+        `;
+
+        document.getElementById('holland-result-content').innerHTML = resultHtml;
+        document.getElementById('holland-quiz-screen').classList.remove('active');
+        document.getElementById('final-result-screen').classList.add('active');
+    }
+
+    function toggleLanguage() {
+        currentLang = currentLang === 'ar' ? 'en' : 'ar';
+        const htmlTag = document.documentElement;
+        htmlTag.setAttribute('lang', currentLang);
+        htmlTag.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+
+        // تحديث كل النصوص العامة اللي عليها data-ar و data-en
+        document.querySelectorAll('[data-ar]').forEach(el => {
+            el.innerText = el.getAttribute(`data-${currentLang}`);
+        });
+
+        // إعادة رسم الأسئلة باللغة الجديدة
+        renderQuestions();
+    }
+
+    // أول ما الصفحة تفتح لأول مرة، ارسم الأسئلة
+    window.onload = renderQuestions;
+</script>
+
+</body>
+</html>
